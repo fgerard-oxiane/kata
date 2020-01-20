@@ -23,8 +23,15 @@ public class AccountTest {
         assertTrue(clientAccount.getBalance().equals(BigDecimal.valueOf(20)));
     }
 
+    @Test(expected = InvalidOperation.class)
+    public void shouldThrowsExceptionForNullOrNegativeWithdrawalAmount() throws InvalidOperation {
+        Account clientAccount = new Account(BigDecimal.TEN);
+        clientAccount.withdrawal(null);
+        clientAccount.withdrawal(BigDecimal.valueOf(-10));
+    }
+
     @Test
-    public void shouldReturnBalanceMinusWithdrawalAmount() {
+    public void shouldReturnBalanceMinusWithdrawalAmount() throws InvalidOperation {
         Account clientAccount = new Account(BigDecimal.TEN);
         clientAccount.withdrawal(BigDecimal.ONE);
         assertTrue(clientAccount.getBalance().equals(BigDecimal.valueOf(9)));

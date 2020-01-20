@@ -26,7 +26,13 @@ public class Account {
         balance = balance.add(deposit);
     }
 
-    public void withdrawal(BigDecimal withdrawal) {
+    public void withdrawal(BigDecimal withdrawal) throws InvalidOperation {
+        if(withdrawal == null) {
+            throw new InvalidOperation("The withdrawal can not be null !");
+        }
+        if(withdrawal.compareTo(BigDecimal.ZERO) < 0) {
+            throw new InvalidOperation("The withdrawal can not be negative !");
+        }
         balance = balance.subtract(withdrawal);
     }
 
