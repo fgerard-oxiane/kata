@@ -4,6 +4,7 @@ import com.oxiane.bankaccount.exception.InvalidOperation;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -51,6 +52,19 @@ public class AccountTest {
         Account clientAccount = new Account(BigDecimal.ONE);
         clientAccount.withdrawal(BigDecimal.TEN);
         assertTrue(clientAccount.getBalance().equals(BigDecimal.valueOf(9)));
+    }
+
+    @Test
+    public void shouldReturnOperationHistoryForAccountCreation() {
+        Account clientAccount = new Account(BigDecimal.TEN);
+        List<OperationHistory> operations = clientAccount.getOperations();
+        assertTrue(operations != null);
+        assertTrue(operations.size() == 1);
+        OperationHistory initialOperation = clientAccount.getOperations().get(0);
+        assertTrue(initialOperation.getDate() != null);
+        assertTrue(initialOperation.getOperation().equals(Operation.DEPOSIT));
+        assertTrue(initialOperation.getAmount().equals(BigDecimal.TEN));
+        assertTrue(initialOperation.getBalance().equals(BigDecimal.TEN));
     }
 
 }
