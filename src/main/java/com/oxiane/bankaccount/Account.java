@@ -33,6 +33,9 @@ public class Account {
         if(withdrawal.compareTo(BigDecimal.ZERO) < 0) {
             throw new InvalidOperation("The withdrawal can not be negative !");
         }
+        if(balance.subtract(withdrawal).compareTo(BigDecimal.ZERO) < 0) {
+            throw new InvalidOperation("The balance can not be negative !");
+        }
         balance = balance.subtract(withdrawal);
     }
 

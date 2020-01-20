@@ -30,10 +30,16 @@ public class AccountTest {
         clientAccount.withdrawal(BigDecimal.valueOf(-10));
     }
 
-    @Test
+    @Test(expected = InvalidOperation.class)
+    public void shouldThrowsExceptionForNegativeBalanceWithdrawalAmount() throws InvalidOperation {
+        Account clientAccount = new Account(BigDecimal.ONE);
+        clientAccount.withdrawal(BigDecimal.TEN);
+    }
+
+    @Test(expected = InvalidOperation.class)
     public void shouldReturnBalanceMinusWithdrawalAmount() throws InvalidOperation {
-        Account clientAccount = new Account(BigDecimal.TEN);
-        clientAccount.withdrawal(BigDecimal.ONE);
+        Account clientAccount = new Account(BigDecimal.ONE);
+        clientAccount.withdrawal(BigDecimal.TEN);
         assertTrue(clientAccount.getBalance().equals(BigDecimal.valueOf(9)));
     }
 
