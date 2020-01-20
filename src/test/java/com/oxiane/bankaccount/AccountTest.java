@@ -23,4 +23,11 @@ public class AccountTest {
         assertTrue(clientAccount.getBalance().equals(BigDecimal.valueOf(20)));
     }
 
+    @Test
+    public void shouldReturnBalanceMinusWithdrawalAmount() {
+        Account clientAccount = new Account(BigDecimal.TEN);
+        clientAccount.withdrawal(BigDecimal.ONE);
+        assertTrue(clientAccount.getBalance().equals(BigDecimal.valueOf(9)));
+    }
+
 }

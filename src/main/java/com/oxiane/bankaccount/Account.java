@@ -26,4 +26,8 @@ public class Account {
         balance = balance.add(deposit);
     }
 
+    public void withdrawal(BigDecimal withdrawal) {
+        balance = balance.subtract(withdrawal);
+    }
+
 }
