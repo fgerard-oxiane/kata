@@ -67,4 +67,19 @@ public class AccountTest {
         assertTrue(initialOperation.getBalance().equals(BigDecimal.TEN));
     }
 
+    @Test
+    public void shouldReturnAllOperationHistoryForOneAccount() throws InvalidOperation {
+        Account clientAccount = new Account(new BigDecimal(2500));
+        clientAccount.withdrawal(new BigDecimal(500));
+        clientAccount.withdrawal(new BigDecimal(500));
+        clientAccount.withdrawal(new BigDecimal(1000));
+        clientAccount.deposit(new BigDecimal(500));
+        //First withdrawal operation
+        OperationHistory operationHistory = clientAccount.getOperations().get(1);
+        assertTrue(operationHistory.getAmount().equals(BigDecimal.valueOf(500)));
+        assertTrue(operationHistory.getBalance().equals(BigDecimal.valueOf(2000)));
+        //After all operations
+        assertTrue(clientAccount.getBalance().equals(new BigDecimal(1000)));
+    }
+
 }
