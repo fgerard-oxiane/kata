@@ -1,5 +1,7 @@
 package com.oxiane.bankaccount;
 
+import exception.InvalidOperation;
+
 import java.math.BigDecimal;
 
 public class Account {
@@ -14,7 +16,13 @@ public class Account {
         return balance;
     }
 
-    public void deposit(BigDecimal deposit) {
+    public void deposit(BigDecimal deposit) throws InvalidOperation {
+        if(deposit == null) {
+            throw new InvalidOperation("The deposit can not be null !");
+        }
+        if(deposit.compareTo(BigDecimal.ZERO) < 0) {
+            throw new InvalidOperation("The deposit can not be negative !");
+        }
         balance = balance.add(deposit);
     }
 
