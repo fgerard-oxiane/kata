@@ -1,14 +1,21 @@
 package com.oxiane.bankaccount;
 
-import exception.InvalidOperation;
+import com.oxiane.bankaccount.exception.InvalidOperation;
+import com.oxiane.bankaccount.validation.AccountOperationValidator;
 
 import java.math.BigDecimal;
 
 public class Account {
 
     private BigDecimal balance;
+    private AccountOperationValidator validator;
+
+    private Account() {
+        this.validator = new AccountOperationValidator();
+    }
 
     public Account(BigDecimal balance) {
+        this();
         this.balance = balance;
     }
 
@@ -17,25 +24,12 @@ public class Account {
     }
 
     public void deposit(BigDecimal deposit) throws InvalidOperation {
-        if(deposit == null) {
-            throw new InvalidOperation("The deposit can not be null !");
-        }
-        if(deposit.compareTo(BigDecimal.ZERO) < 0) {
-            throw new InvalidOperation("The deposit can not be negative !");
-        }
+        this.validator.depositOperationValidation(deposit);
         balance = balance.add(deposit);
     }
 
     public void withdrawal(BigDecimal withdrawal) throws InvalidOperation {
-        if(withdrawal == null) {
-            throw new InvalidOperation("The withdrawal can not be null !");
-        }
-        if(withdrawal.compareTo(BigDecimal.ZERO) < 0) {
-            throw new InvalidOperation("The withdrawal can not be negative !");
-        }
-        if(balance.subtract(withdrawal).compareTo(BigDecimal.ZERO) < 0) {
-            throw new InvalidOperation("The balance can not be negative !");
-        }
+        this.validator.withdrawalOperationValidation(withdrawal, this.balance);
         balance = balance.subtract(withdrawal);
     }
 

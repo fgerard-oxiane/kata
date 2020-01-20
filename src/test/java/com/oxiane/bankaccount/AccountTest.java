@@ -1,6 +1,6 @@
 package com.oxiane.bankaccount;
 
-import exception.InvalidOperation;
+import com.oxiane.bankaccount.exception.InvalidOperation;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -31,7 +31,7 @@ public class AccountTest {
     }
 
     @Test(expected = InvalidOperation.class)
-    public void shouldThrowsExceptionForNegativeBalanceWithdrawalAmount() throws InvalidOperation {
+    public void shouldThrowsExceptionForNegativeBalance() throws InvalidOperation {
         Account clientAccount = new Account(BigDecimal.ONE);
         clientAccount.withdrawal(BigDecimal.TEN);
     }

@@ -1,4 +1,4 @@
-package exception;
+package com.oxiane.bankaccount.exception;
 
 public class InvalidOperation extends Exception {
 
